@@ -9,11 +9,12 @@
   'use strict';
 
   var angular = (root && root.angular) || (window && window.angular);
+  var isElectron = window && window.process && window.process.type;
   if(typeof define === 'function' && define.amd) {                    // AMD
     define(['localforage'], function(localforage) {
       return factory(angular, localforage);
     });
-  } else if(typeof exports === 'object' || typeof global === 'object') {
+  } else if((typeof exports === 'object' || typeof global === 'object') && !isElectron) {
     if(typeof module === 'undefined') {
       global.module.exports = factory(angular, require('localforage')); // NW.js
     } else {
